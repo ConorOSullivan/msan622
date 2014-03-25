@@ -1,9 +1,9 @@
 Homework 1: Basic Charts
 ==============================
 
-| **Name**  | [YOUR NAME]  |
+| **Name**  | Conor O'Sullivan  |
 |----------:|:-------------|
-| **Email** | [USERNAME]@dons.usfca.edu |
+| **Email** | ccosullivan@dons.usfca.edu |
 
 ## Instructions ##
 
