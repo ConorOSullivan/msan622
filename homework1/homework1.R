@@ -31,8 +31,9 @@ t<-ggplot(m,aes(x=budget, y=rating,color=genre))+
     theme(text = element_text(size=20))+
     scale_x_continuous(labels=comma)+
     scale_y_continuous(breaks=c(0:10))+
-    scale_color_manual(values=c("red","#8EAE69","green",'orange','brown','blue','turquoise','yellow','black'),name="Genre")+
-    theme(legend.background = element_rect(fill="gray90", size=.5, linetype="dotted"))+
+    #scale_color_manual(values=c("red","#8EAE69","green",'orange','brown','blue','turquoise','yellow','black'),name="Genre")+
+    scale_color_manual(values=c("brown3","lavenderblush2","lemonchiffon4",'lightblue','lightpink','cyan4','paleturquoise3','burlywood3','chartreuse3'),name="Genre")+
+    theme(legend.background = element_rect(fill="gray99", size=.5, linetype="dotted"))+
     theme(panel.grid.minor = element_line(colour = "gray90"))
 #show(t)
 ggsave("hw1-scatter.png",height=8,width=13)
@@ -64,7 +65,8 @@ q<-ggplot(e,aes(x=budget/1000000, y=rating,color=genre))+
   theme_grey()+
   theme(text = element_text(size=20))+
   scale_y_continuous(breaks=c(0:10))+
-  scale_color_manual(values=c("red","#8EAE69","green",'orange','brown','blue','turquoise','yellow','black'),name="Genre")+
+  #scale_color_manual(values=c("red","#8EAE69","green",'orange','brown','blue','turquoise','yellow','black'),name="Genre")+
+  scale_color_manual(values=c("brown3","lavenderblush4","lemonchiffon4",'lightblue','lightpink','cyan4','paleturquoise3','burlywood3','chartreuse3'),name="Genre")+
   theme(legend.background = element_rect(fill="gray90", size=.5, linetype="dotted"))+
   theme(panel.grid.minor = element_line(colour = "gray90"))+
   theme(legend.position="none")+
