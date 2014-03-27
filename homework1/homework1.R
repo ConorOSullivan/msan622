@@ -29,7 +29,7 @@ t<-ggplot(m,aes(x=budget, y=rating,color=genre))+
     ylab("Movie Rating")+
     theme_grey()+
     theme(text = element_text(size=20))+
-    scale_x_continuous(labels=comma)+
+    scale_x_continuous(labels=dollar_format())+
     scale_y_continuous(breaks=c(0:10))+
     #scale_color_manual(values=c("red","#8EAE69","green",'orange','brown','blue','turquoise','yellow','black'),name="Genre")+
     scale_color_manual(values=c("brown3","lavenderblush2","lemonchiffon4",'lightblue','lightpink','cyan4','paleturquoise3','burlywood3','chartreuse3'),name="Genre")+
