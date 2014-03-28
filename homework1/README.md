@@ -14,12 +14,7 @@ The following packages must be installed prior to running this code:
 - `plyr`
 - `scales`
 
-To run this code, please enter the following commands in R:
-
-```
-library(devtools)
-source_url("https://raw.github.com/sjengle/msan622/template/homework0/anscombe.r")
-```
+Simply run homework1.r
 
 This will generate 4 images.
 
