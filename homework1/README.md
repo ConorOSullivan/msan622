@@ -41,7 +41,7 @@ I decided to order the bars from greatest to least instead of their first order,
 
 ![IMAGE](hw1-multiples.png)
 
-I decided to turn rescale the movie budgets by a factor of one million to improve the readability of the tick mark labels. Also, I removed the legend because the information it provides in this plot is redundant and unnecessary. I preferred the 3-by-3 symmetry of the rows and columns compared to the two rows of 5 graphs and 4 graphs. I would only have chosen 5 and 4 if I was keeping in the legend.
+I decided to rescale the movie budgets by a factor of one million to improve the readability of the tick mark labels. Also, I removed the legend because the information it provides in this plot is redundant and unnecessary. I preferred the 3-by-3 symmetry of the rows and columns compared to the two rows of 5 graphs and 4 graphs. I would only have chosen 5 and 4 if I was keeping in the legend.
 
 #Multiline Graph:
 
