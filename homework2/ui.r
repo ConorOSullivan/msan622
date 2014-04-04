@@ -23,7 +23,8 @@ shinyUI(
       selectInput(
         "colorChoice",
         "Color Scheme",
-        choices = c("Default","Accent", "Set1", "Set2", "Set3", "Dark2", "Pastel1","Pastel2")
+        choices = c("Default","Accent", "Set1", "Set2", "Set3", "Dark2", "Pastel1","Pastel2"),
+        "Set1"
         ),
       sliderInput(
         "dotSize",

@@ -22,51 +22,50 @@ loadData <- function() {
 }
 
 globalData <- loadData()
+globalData$mpaa<-factor(globalData$mpaa)
 logspace <- function( d1, d2, n) exp(log(10)*seq(d1, d2, length.out=n))
 
 getPlot <- function(localFrame, colorChoice, dotSize, dotAlpha, selectGenre, showRating, logAxis) {
   # Create base plot.
-  support <- logspace(0,8,9)
-  localPlot<-ggplot(localFrame,aes(x=budget, y=rating))+
-             ggtitle("Scatterplot of  Movie Rating vs. Movie Budget")+
-             xlab("Movie Budget")+
-             ylab("Movie Rating")+
-             theme_grey()+
-             theme(text = element_text(size=20))+
-             geom_point(aes(color=mpaa), size=dotSize, alpha=dotAlpha)+
-             scale_y_continuous(breaks=0:10, expand=c(0,0), limits=c(0,10.5))+
-             theme(legend.key = element_rect(fill = "white"))+
-             theme(panel.background = element_blank(), panel.grid = element_blank())+
-             theme(line = element_line(colour = 'gray'), axis.line = element_line(colour = 'gray'))+
-             theme(legend.direction = "horizontal")+
-             theme(legend.justification = c(0, 0))+
-             theme(legend.position = c(0, 0))+
-             theme(panel.grid.minor = element_line(colour = "gray90"))
-     
-     
-  
-  all<-c("NC-17", "PG", "PG-13", "R")
-  
-  if (showRating == "All") res<-c(TRUE,TRUE,TRUE,TRUE)
-  else res<-all %in% showRating
-  
-  if (colorChoice == "Default"){
-    thepal<-c("#F8766D", "#7CAE00", "#00BFC4", "#C77CFF")[res]
-    localPlot<-localPlot + scale_color_manual(values=thepal, name="Rating")
-  }
-  if (colorChoice != "Default"){
-    thepal<-brewer_pal(palette = colorChoice)(4)[res]
-    localPlot<-localPlot + scale_color_manual(values=thepal, name="Rating")
-  }
-  if (logAxis) {
-    localPlot<-localPlot+
-      scale_x_log10(breaks=support,
-                    labels=paste0(dollar(support/1000), 'k'),
-                    limits=c(min(globalData$budget, na.rm = T),
-                             max(globalData$budget, na.rm = T)))
+  if (nrow(localFrame) > 0) {
+    support <- logspace(0,8,9)
+    localPlot<-ggplot(localFrame,aes(x=budget, y=rating))+
+      ggtitle("Scatterplot of  Movie Rating vs. Movie Budget")+
+      xlab("Movie Budget")+
+      ylab("Movie Rating")+
+      theme_grey()+
+      geom_point(aes(color=mpaa), size=dotSize, alpha=dotAlpha)+
+      scale_y_continuous(breaks=0:10, expand=c(0,0), limits=c(0,10.5))+
+      scale_color_brewer(palette=colorChoice, limits=levels(globalData$mpaa), name="MPAA Rating")+
+      theme(legend.key = element_rect(fill = "white"))+
+      theme(panel.background = element_blank(), panel.grid = element_blank())+
+      theme(line = element_line(colour = 'gray'), axis.line = element_line(colour = 'gray'))+
+      theme(legend.direction = "horizontal")+
+      theme(legend.justification = c(0, 0))+
+      theme(legend.position = c(0, 0))+
+      theme(panel.grid.minor = element_line(colour = "gray90"))+
+      theme(text = element_text(size=24))
+    
+    if (logAxis) {
+      localPlot<-localPlot+
+        scale_x_log10(breaks=support,
+                      labels=paste0(dollar(support/1000), 'k'),
+                      limits=c(min(globalData$budget, na.rm = T),
+                               max(globalData$budget, na.rm = T)))
+    }
+    else {
+      localPlot<-localPlot+scale_x_continuous(label=dollar, limits=c(0,max(globalData$budget)))
+    }
   }
   else {
-    localPlot<-localPlot+scale_x_continuous(label=dollar, limits=c(0,max(globalData$budget)))
+    localPlot<-ggplot(localFrame,aes(x=budget, y=rating))+
+      geom_text(aes(x=10000, y=10), label="No data to display")+
+      theme(axis.line=element_blank(),axis.text.x=element_blank(),
+            axis.text.y=element_blank(),axis.ticks=element_blank(),
+            axis.title.x=element_blank(),
+            axis.title.y=element_blank(),legend.position="none",
+            panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+            panel.grid.minor=element_blank(),plot.background=element_blank())
   }
   
   return(localPlot)
@@ -86,47 +85,35 @@ shinyServer(function(input, output) {
     localFrame<-localFrame[localFrame$length >= input$movieLength[1] & localFrame$length <= input$movieLength[2],]
     return(localFrame)
   })
-
+  
   
   output$scatterPlot <- renderPlot(
-    {
-      # Use our function to generate the plot.
-      scatterPlot <- getPlot(
-        changeFrame(),
-        input$colorChoice,
-        input$dotSize,
-        input$dotAlpha,
-        input$selectGenre,
-        input$showRating,
-        input$logAxis
-      )
-      # Output the plot
-      print(scatterPlot)
-    }
+{
+  # Use our function to generate the plot.
+  scatterPlot <- getPlot(
+    changeFrame(),
+    input$colorChoice,
+    input$dotSize,
+    input$dotAlpha,
+    input$selectGenre,
+    input$showRating,
+    input$logAxis
   )
-  
-  sortOrder <- reactive(
-    {
-      return(
-        order(
-          localFrame[,tolower(paste(input$sortColumn))],
-          decreasing = input$sortDecreasing
-        )
-      )
-    }
+  # Output the plot
+  print(scatterPlot)
+}
   )
   
   output$table <- renderTable(
-    {
-        localFrame<-localFrame[sortOrder(),c("title", "year", "length", "budget", "rating", "mpaa", "genre")]
-        return(localFrame[localFrame$length >= input$movieLength[1] & localFrame$length <= input$movieLength[2],])
-    },
-      include.rownames = FALSE
+{
+  localFrame<-changeFrame()
+  theorder<-order(localFrame[,tolower(paste(input$sortColumn))],
+                    decreasing = input$sortDecreasing)
+  localFrame<-localFrame[theorder, c("title", "year", "length", "budget", "rating", "mpaa", "genre")]
+  return(localFrame[localFrame$length >= input$movieLength[1] & localFrame$length <= input$movieLength[2],])
+},
+include.rownames = FALSE
   )
   
   
 })
-
-
-
-
