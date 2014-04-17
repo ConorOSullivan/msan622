@@ -4,7 +4,7 @@ shinyUI(
   # We will create a page with a sidebar for input.
   pageWithSidebar(  
     # Add title panel.
-    headerPanel("Movie Data"),
+    headerPanel("State Data"),
     sidebarPanel(
       selectInput(
         "colorBy",
