@@ -32,18 +32,18 @@ This will start the `shiny` app. See below for details on how to interact with t
 
 I chose to create an area plot because I wanted to show the massive drop in monthly deaths that took place when the seatbelt law was enacted. I also decided to add more information by using the data's separation of driver, front seat passenger, and rear seat passenger deaths. The plot below the area plot is a line graph that gives context to what the area plot is currently showing. 
 
-Interactivity:
+**Interactivity**:
 The user can choose what span of years are being shown in the area graph, as well as which years are shaded in the context line graph, by using the slider on the left sidebar.
 
-Customization:
+**Customization**:
 - Made changes to the theme like legend position/justification, deleting grid marks and tick marks
 - If the user selects the same year as the start and end point, a warning message is displayed
 - Used RColorBrewer to set the color palette
 - Added a line segment, text, and arrow on both graphs to show when the seatbelt law was enacted
 
-Data-ink ratio: This plot has a moderately high data-ink ratio, since I've removed extraneous gridmarks and tick marks. However, there is some text written on the plots themselves that I've kept in order to explain certain pieces of information that I felt were worth explaining.  
-Lie factor: Lie factor on this is 1 since the numbers are not distorted.  
-Data density: This plot has a moderate data density. The area plot itself takes up a lot of space, and while it shows three different classes of auto passenger as well as when the law was enacted, it is still clear that this is not the densest visualization.
+**Data-ink ratio**: This plot has a moderately high data-ink ratio, since I've removed extraneous gridmarks and tick marks. However, there is some text written on the plots themselves that I've kept in order to explain certain pieces of information that I felt were worth explaining.  
+**Lie factor**: Lie factor on this is 1 since the numbers are not distorted.  
+**Data density**: This plot has a moderate data density. The area plot itself takes up a lot of space, and while it shows three different classes of auto passenger as well as when the law was enacted, it is still clear that this is not the densest visualization.
 
 ![IMAGE](multiline.png)
 
@@ -51,10 +51,10 @@ Data density: This plot has a moderate data density. The area plot itself takes 
 
 I chose a multi-line plot in order to better show the seasonality of the data.
 
-Interactivity:
+**Interactivity**:
 The same year preferences the user selected on the area plot tab apply here.
 
-Customization:
+**Customization**:
 - Shortened and formatted month names
 - Used color brewer to choose color scale
 - Gray out years that aren't selected
