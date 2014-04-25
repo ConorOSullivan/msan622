@@ -44,9 +44,16 @@ shinyUI(pageWithSidebar(
          height = "200px"
        )    
       ),
-      tabPanel("Heatmap",
+#       tabPanel("Heatmap",
+#                plotOutput(
+#                  outputId = "heatmap", 
+#                  width = "100%", 
+#                  height = "600px"
+#                )
+#       ),
+      tabPanel("Multi-Line",
                plotOutput(
-                 outputId = "heatmap", 
+                 outputId = "multiline", 
                  width = "100%", 
                  height = "600px"
                )

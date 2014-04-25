@@ -181,64 +181,118 @@ plotOverview <- function(start = 1969, end = 1985) {
 
 # plotOverview()
 
-plotGrid<-function(start=1969, end=1985){
-  if (end == 1985) end = 1984
-  molten2<-molten[molten$year >= start & molten$year <= end,]
-  scale_prgn <- function() {
-    return(
-      scale_fill_gradientn(
-        colours = brewer_pal(
-          type = "div", 
-          palette = "PRGn")(5),
-        name = "Deaths",
-        limits = c(0, 4500),
-        #breaks = c(0, 2000, 4000)
-        breaks = c(0, 2250, 4500)
-      )
-      #       scale_fill_gradient(low = "white", high = "blue",
-      #                           limits = c(0, 4500),
-      #                           breaks = c(0, 2250, 4500)) 
-    )
-  }
-  
-  theme_heatmap <- function() {
-    return (
-      theme(
-        axis.text.y = element_text(
-          angle = 90,
-          hjust = 0.5),
-        axis.ticks = element_blank(),
-        axis.title = element_blank(),
-        legend.direction = "horizontal",
-        legend.position = "top",
-        panel.background = element_blank()
-      )
-    )
-  }
-  
-  
-  p <- ggplot(
-    subset(molten2, variable == "totdeaths"), 
-    aes(x = month, y = year)
-  )
-  
-  p <- p + geom_tile(
-    aes(fill = value), 
-    colour = "white"
-  )
-  
-  p <- p + scale_prgn()
-  p <- p + scale_months()
-  p <- p + scale_y_discrete(expand = c(0, 0))
-  p <- p + theme_heatmap()
-  
-  # p <- p + coord_polar()
-  p <- p + coord_fixed(ratio = 1)
-  p <- p + ggtitle('Heatmap of Total Vehicle Injuries and Deaths in the UK')
-  
-  show(p)
-}
+# plotGrid<-function(start=1969, end=1985){
+#   if (end == 1985) end = 1984
+#   molten2<-molten[molten$year >= start & molten$year <= end,]
+#   scale_prgn <- function() {
+#     return(
+#       scale_fill_gradientn(
+#         colours = brewer_pal(
+#           type = "div", 
+#           palette = "PRGn")(5),
+#         name = "Deaths",
+#         limits = c(0, 4500),
+#         #breaks = c(0, 2000, 4000)
+#         breaks = c(0, 2250, 4500)
+#       )
+#       #       scale_fill_gradient(low = "white", high = "blue",
+#       #                           limits = c(0, 4500),
+#       #                           breaks = c(0, 2250, 4500)) 
+#     )
+#   }
+#   
+#   theme_heatmap <- function() {
+#     return (
+#       theme(
+#         axis.text.y = element_text(
+#           angle = 90,
+#           hjust = 0.5),
+#         axis.ticks = element_blank(),
+#         axis.title = element_blank(),
+#         legend.direction = "horizontal",
+#         legend.position = "top",
+#         panel.background = element_blank()
+#       )
+#     )
+#   }
+#   
+#   
+#   p <- ggplot(
+#     subset(molten2, variable == "totdeaths"), 
+#     aes(x = month, y = year)
+#   )
+#   
+#   p <- p + geom_tile(
+#     aes(fill = value), 
+#     colour = "white"
+#   )
+#   
+#   p <- p + scale_prgn()
+#   p <- p + scale_months()
+#   p <- p + scale_y_discrete(expand = c(0, 0))
+#   p <- p + theme_heatmap()
+#   
+#   # p <- p + coord_polar()
+#   p <- p + coord_fixed(ratio = 1)
+#   p <- p + ggtitle('Heatmap of Total Vehicle Injuries and Deaths in the UK')
+# #   p <- p + geom_text(data=NULL, x = )
+#   
+#   show(p)
+# }
 
+plotMulti<-function(start=1969, end=1977){
+  
+  if (end - start <= 8) {
+    ys <- c(1969:1984)
+    palette <- rep("grey85",16)
+    palette[which(ys >= start & ys <= end)]<-brewer_pal(type = "qual", palette = "Set1")(9)
+    
+    p <- ggplot(
+      subset(molten, variable == "totdeaths"), 
+      aes(
+        x = month, 
+        y = value, 
+        group = year, 
+        color = year
+      )
+    )
+    
+    # CREATE MULTI-LINE PLOT ##############
+    p <- p + geom_line(alpha = 0.8)
+    #     p <- p + scale_colour_brewer(palette = "Set1")
+    p <- p + scale_color_manual(limits=levels(seat$year), values=palette)
+    
+    # make it pretty
+    p <- p + scale_months()
+    #p <- p + scale_deaths()
+    p <- p + theme_legend()
+    p <- p + theme_guide()
+    p <- p + ggtitle('Multi-Line Plot of Total Injuries and Deaths vs Month')
+    p <- p + ylab('Total Injuries and Deaths')
+    
+    # squarify grid (1 month to 1000 deaths)
+    # p <- p + coord_fixed(ratio = 1 / 1000)
+    
+    # CREATE FACET PLOT ###################
+    # p <- p + facet_wrap(~ year, ncol = 2)
+    # p <- p + theme(legend.position = "none")
+    
+    # CREATE STAR-LIKE PLOT ###############
+    # p <- p + coord_polar()
+  }
+  else {
+    p<-ggplot()+geom_text(data=NULL, aes(x=1975, y=3000), label="Choose fewer years. Max years this plot can display is 9.")+
+      theme(axis.line=element_blank(),axis.text.x=element_blank(),
+            axis.text.y=element_blank(),axis.ticks=element_blank(),
+            axis.title.x=element_blank(),
+            axis.title.y=element_blank(),legend.position="none",
+            panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+            panel.grid.minor=element_blank(),plot.background=element_blank())
+  }
+  
+  show(p) 
+  
+}
 
 
 
@@ -251,8 +305,12 @@ shinyServer(function(input, output) {
     print(plotOverview(input$num[1], input$num[2]))
   })
   
-  output$heatmap <- renderPlot({
-    print(plotGrid(input$num[1], input$num[2]))
+#   output$heatmap <- renderPlot({
+#     print(plotGrid(input$num[1], input$num[2]))
+#   })
+  
+  output$multiline <- renderPlot({
+    print(plotMulti(input$num[1], input$num[2]))
   })
   
 })
