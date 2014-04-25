@@ -26,6 +26,20 @@ molten <- melt(
   id = c("year", "month", "time")
 )
 
+
+theme_guide <- function() {
+  options = list(size = 2)
+  
+  return(
+    guides(
+      colour = guide_legend(
+        "year", 
+        override.aes = options
+      )
+    )
+  )
+}
+
 # scale_year <- function() {
 #   return(
 #     scale_x_continuous(
