@@ -254,55 +254,112 @@ plotOverview <- function(start = 1969, end = 1985) {
 #   show(p)
 # }
 
-plotMulti<-function(start=1969, end=1977){
+# plotMulti<-function(start=1969, end=1977){
+#   
+#   if (end - start <= 8) {
+#     ys <- c(1969:1984)
+#     palette <- rep("grey85",16)
+#     palette[which(ys >= start & ys <= end)]<-brewer_pal(type = "qual", palette = "Set1")(9)
+#     
+#     p <- ggplot(
+#       subset(molten, variable == "totdeaths"), 
+#       aes(
+#         x = month, 
+#         y = value, 
+#         group = year, 
+#         color = year
+#       )
+#     )
+#     
+#     # CREATE MULTI-LINE PLOT ##############
+#     p <- p + geom_line(alpha = 0.8)
+#     #     p <- p + scale_colour_brewer(palette = "Set1")
+#     p <- p + scale_color_manual(limits=levels(seat$year), values=palette)
+#     
+#     # make it pretty
+#     p <- p + scale_months()
+#     #p <- p + scale_deaths()
+#     p <- p + theme_legend()
+#     p <- p + theme_guide()
+#     p <- p + ggtitle('Multi-Line Plot of Total Injuries and Deaths vs Month')
+#     p <- p + ylab('Total Injuries and Deaths')
+#     
+#     # squarify grid (1 month to 1000 deaths)
+#     # p <- p + coord_fixed(ratio = 1 / 1000)
+#     
+#     # CREATE FACET PLOT ###################
+#     # p <- p + facet_wrap(~ year, ncol = 2)
+#     # p <- p + theme(legend.position = "none")
+#     
+#     # CREATE STAR-LIKE PLOT ###############
+#     # p <- p + coord_polar()
+#   }
+#   else {
+#     p<-ggplot()+geom_text(data=NULL, aes(x=1975, y=3000), label="Choose fewer years. Max years this plot can display is 9.")+
+#       theme(axis.line=element_blank(),axis.text.x=element_blank(),
+#             axis.text.y=element_blank(),axis.ticks=element_blank(),
+#             axis.title.x=element_blank(),
+#             axis.title.y=element_blank(),legend.position="none",
+#             panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+#             panel.grid.minor=element_blank(),plot.background=element_blank())
+#   }
+#   
+#   show(p) 
+#   
+# }
+
+plotMulti<-function(start=1969, end=1972){
   
-  if (end - start <= 8) {
-    ys <- c(1969:1984)
-    palette <- rep("grey85",16)
-    palette[which(ys >= start & ys <= end)]<-brewer_pal(type = "qual", palette = "Set1")(9)
-    
-    p <- ggplot(
-      subset(molten, variable == "totdeaths"), 
-      aes(
-        x = month, 
-        y = value, 
-        group = year, 
-        color = year
-      )
+  #   if (end - start <= 8) {
+  ys <- c(1969:1984)
+  #     palette <- rep("grey85",16)
+  ps <- gg_color_hue(16)
+  #     palette[which(ys >= start & ys <= end)]<-brewer_pal(type = "qual", palette = "Set1")(9)
+  ps[which(ys < start | ys > end)]<-"grey85"
+  #     print(which(ys < start | ys > end))
+  #     print(ps)
+  p <- ggplot(
+    subset(molten, variable == "totdeaths"), 
+    aes(
+      x = month, 
+      y = value, 
+      group = year, 
+      color = year
     )
-    
-    # CREATE MULTI-LINE PLOT ##############
-    p <- p + geom_line(alpha = 0.8)
-    #     p <- p + scale_colour_brewer(palette = "Set1")
-    p <- p + scale_color_manual(limits=levels(seat$year), values=palette)
-    
-    # make it pretty
-    p <- p + scale_months()
-    #p <- p + scale_deaths()
-    p <- p + theme_legend()
-    p <- p + theme_guide()
-    p <- p + ggtitle('Multi-Line Plot of Total Injuries and Deaths vs Month')
-    p <- p + ylab('Total Injuries and Deaths')
-    
-    # squarify grid (1 month to 1000 deaths)
-    # p <- p + coord_fixed(ratio = 1 / 1000)
-    
-    # CREATE FACET PLOT ###################
-    # p <- p + facet_wrap(~ year, ncol = 2)
-    # p <- p + theme(legend.position = "none")
-    
-    # CREATE STAR-LIKE PLOT ###############
-    # p <- p + coord_polar()
-  }
-  else {
-    p<-ggplot()+geom_text(data=NULL, aes(x=1975, y=3000), label="Choose fewer years. Max years this plot can display is 9.")+
-      theme(axis.line=element_blank(),axis.text.x=element_blank(),
-            axis.text.y=element_blank(),axis.ticks=element_blank(),
-            axis.title.x=element_blank(),
-            axis.title.y=element_blank(),legend.position="none",
-            panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
-            panel.grid.minor=element_blank(),plot.background=element_blank())
-  }
+  )
+  
+  # CREATE MULTI-LINE PLOT ##############
+  p <- p + geom_line(alpha = 0.8)
+  #     p <- p + scale_colour_brewer(palette = "Set1")
+  p <- p + scale_color_manual(limits=levels(seat$year), values=ps)
+  
+  # make it pretty
+  p <- p + scale_months()
+  #p <- p + scale_deaths()
+  p <- p + theme_legend()
+  p <- p + theme_guide()
+  p <- p + ggtitle('Multi-Line Plot of Total Injuries and Deaths vs Month')
+  p <- p + ylab('Total Injuries and Deaths')
+  
+  # squarify grid (1 month to 1000 deaths)
+  # p <- p + coord_fixed(ratio = 1 / 1000)
+  
+  # CREATE FACET PLOT ###################
+  # p <- p + facet_wrap(~ year, ncol = 2)
+  # p <- p + theme(legend.position = "none")
+  
+  # CREATE STAR-LIKE PLOT ###############
+  # p <- p + coord_polar()
+  #   }
+  #   else {
+  #     p<-ggplot()+geom_text(data=NULL, aes(x=1975, y=3000), label="Choose fewer years. Max years this plot can display is 9.")+
+  #       theme(axis.line=element_blank(),axis.text.x=element_blank(),
+  #             axis.text.y=element_blank(),axis.ticks=element_blank(),
+  #             axis.title.x=element_blank(),
+  #             axis.title.y=element_blank(),legend.position="none",
+  #             panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+  #             panel.grid.minor=element_blank(),plot.background=element_blank())
+  #   }
   
   show(p) 
   

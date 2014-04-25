@@ -65,3 +65,4 @@ The same year preferences the user selected on the area plot tab apply here.
 **Lie factor**: There is a lie factor of 1 in this plot. No misrepresenation of the numbers here.  
 **Data density**: This plot is also moderately data-dense. Here we can only see total deaths, but the months are easier to distinguish than the area plot before, so we get some explanatory power out of that fact. It wasn't easy to display when the seatbelt law came into effect, so I left that part out, resulting in less data density than before.
 
+One issue with this plot is that it can only show 9 years at once. This is because the palette from color brewer can only provide so many colors. Ideally there would be something that could display 16 colors at once but I wasn't able to find a solution for this.
