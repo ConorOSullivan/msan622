@@ -56,7 +56,6 @@ The same year preferences the user selected on the area plot tab apply here.
 
 **Customization**:
 - Shortened and formatted month names
-- Used color brewer to choose color scale
 - Gray out years that aren't selected
 - Removed grid lines and tick marks
 - Used white background
@@ -65,4 +64,4 @@ The same year preferences the user selected on the area plot tab apply here.
 **Lie factor**: There is a lie factor of 1 in this plot. No misrepresenation of the numbers here.  
 **Data density**: This plot is also moderately data-dense. Here we can only see total deaths, but the months are easier to distinguish than the area plot before, so we get some explanatory power out of that fact. It wasn't easy to display when the seatbelt law came into effect, so I left that part out, resulting in less data density than before.
 
-One issue with this plot is that it can only show 9 years at once. This is because the palette from color brewer can only provide so many colors. Ideally there would be something that could display 16 colors at once but I wasn't able to find a solution for this.
+I had an issue with coloring this plot. Initially, I wanted to use a color brewer palette, but the maximum number of colors I could find in any palette was 9. So I used the default color wheel from ggplot instead. This allows the plot to be displayed when all years are selected, which is better than my alternative, which was to just display an error message when more than 9 years are selected.
