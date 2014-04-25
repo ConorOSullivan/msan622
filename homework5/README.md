@@ -61,7 +61,7 @@ Customization:
 - Removed grid lines and tick marks
 - Used white background
 
-Data-ink ratio: This plot has a higher data-ink ratio than the area plot. It shows the year-on-year seasonality that certain months have better than the area plot does. For instance, the colder months of the year exhibit a higher total death rate per month than the summer months. This can be seen to be true year after year.  
-Lie factor: There is a lie factor of 1 in this plot. No misrepresenation of the numbers here.
-Data density: This plot is also moderately data-dense. Here we can only see total deaths, but the months are easier to distinguish than the area plot before, so we get some explanatory power out of that fact. It wasn't easy to display when the seatbelt law came into effect, so I left that part out, resulting in less data density than before.
+**Data-ink ratio**: This plot has a higher data-ink ratio than the area plot. It shows the year-on-year seasonality that certain months have better than the area plot does. For instance, the colder months of the year exhibit a higher total death rate per month than the summer months. This can be seen to be true year after year.  
+**Lie factor**: There is a lie factor of 1 in this plot. No misrepresenation of the numbers here.  
+**Data density**: This plot is also moderately data-dense. Here we can only see total deaths, but the months are easier to distinguish than the area plot before, so we get some explanatory power out of that fact. It wasn't easy to display when the seatbelt law came into effect, so I left that part out, resulting in less data density than before.
 
