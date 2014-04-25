@@ -45,11 +45,11 @@ Data-ink ratio: This plot has a moderately high data-ink ratio, since I've remov
 Lie factor: Lie factor on this is 1 since the numbers are not distorted.  
 Data density: This plot has a moderate data density. The area plot itself takes up a lot of space, and while it shows three different classes of auto passenger as well as when the law was enacted, it is still clear that this is not the densest visualization.
 
-![IMAGE](heatmap.png)
+![IMAGE](multiline.png)
 
-### Technique 2: Heatmap
+### Technique 2: Multi-Line
 
-I chose a heatmap in order to better show the seasonality of the data.
+I chose a multi-line plot in order to better show the seasonality of the data.
 
 Interactivity:
 The same year preferences the user selected on the area plot tab apply here.
@@ -57,9 +57,11 @@ The same year preferences the user selected on the area plot tab apply here.
 Customization:
 - Shortened and formatted month names
 - Used color brewer to choose color scale
+- Gray out years that aren't selected
+- Removed grid lines and tick marks
+- Used white background
 
-Data-ink ratio: This plot has a lower data-ink ratio than the area plot. It however shows the year-on-year seasonality that certain months have better than the area plot. For instance, by looking at the intensity of the color green in each year, we can see that there are more deaths in the colder months.
+Data-ink ratio: This plot has a higher data-ink ratio than the area plot. It shows the year-on-year seasonality that certain months have better than the area plot does. For instance, the colder months of the year exhibit a higher total death rate per month than the summer months. This can be seen to be true year after year.  
 Lie factor: There is a lie factor of 1 in this plot. No misrepresenation of the numbers here.
-Data density: This plot is also moderately data-dense. Here we can only see total deaths, but the months are easier to distinguish than the area plot before, so we get some explanatory power out of that fact.
+Data density: This plot is also moderately data-dense. Here we can only see total deaths, but the months are easier to distinguish than the area plot before, so we get some explanatory power out of that fact. It wasn't easy to display when the seatbelt law came into effect, so I left that part out, resulting in less data density than before.
 
-I had very tough time selecting colors for this plot. On one hand, it seems like the color should just be a gradient going from white at 0, to a single intense color at our max value of 4500. This however made it hard to distinguish between the months, as most of the months see about ~2000 deaths. I decided to stick with a two color shift, with the white color centered at our halfway point, 2000.
