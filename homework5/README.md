@@ -1,4 +1,4 @@
-Homework 5: Text Data Visualization
+Homework 5: Time Series Visualization
 ==============================
 
 | **Name**  | Conor O'Sullivan  |
