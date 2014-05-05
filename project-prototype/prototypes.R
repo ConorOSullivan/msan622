@@ -13,7 +13,7 @@ h1<-hPlot(x = "MedianAge",
           size="AdolescentFertilityRate", 
           group = "continent")      
 h1$title(text='Median Age vs Annual Population Growth in 2010')
-#h1$tooltip(formatter("#! function(d) {return 'Median Age: '+d.x+', } !#"))
+h1$tooltip("Potato")
 h1
 
 ### BUBBLE PLOT IN GGPLOT ###
@@ -29,14 +29,14 @@ p<-ggplot(df)+
 p
 
 ### PARALLEL COORDINATES PLOT ###
-
+library(GGally)
 dfsmall<-df[,c("LifeExpectancyAtBirth",
                "MeanYearsSchooling", 
                "GrossNationalIncomePerCapita", 
                "GenderInequalityIndex",
                "AdolescentFertilityRate", 
                "continent")]
-
+dfsmall[,"GrossNationalIncomePerCapita"]<- -1*dfsmall[,"GrossNationalIncomePerCapita"]
 plotPar <- function(dat, al, colorBy) {
   p <- ggparcoord(data = dat,                 
                   columns = 1:5,                 
@@ -48,9 +48,8 @@ plotPar <- function(dat, al, colorBy) {
   )+theme_minimal()+
     theme(axis.ticks.x = element_blank())+
     xlab('Feature')+ylab('Proportion of Maximum Feature Value')+
-    scale_x_discrete(expand=c(0,0)) + scale_color_discrete("Region")+guides(shape = guide_legend(15))
-  #+guides(colour = guide_legend(override.aes = list(shape = 10)))
-  
+    scale_x_discrete(expand=c(0,0))+
+    scale_color_discrete("Region")
   show(p)
 }
 plotPar(dfsmall, .4, "continent")
