@@ -27,6 +27,8 @@ This will start the `shiny` app. See below for details on how to interact with t
 
 ## Discussion ##
 
+![IMAGE](worldmap.png)
+
 ### Technique 1: Chloropleth
 
 I used the rworldmap package to do my plotting. I merged my data with a current world map in their library and plotted the countries using a default Mercator projection. I used the raw data values because I liked how the legend for this plot shows the min and max values.  Using normalized values did not change the color intensity of the plot for any of the variables.
@@ -39,6 +41,8 @@ I learned that while some countries have above average gross national income per
 
 In South America, Argentina and Chile stand out as the most developed countries amongst the following variables: mean years of schooling, gross national income per capita, and life expectancy at birth. Argentina in particular has a strong European influence on the average way of life there, and this is reflected by its values amongst these variables. I think making country-specific conclusions like these are much easier when we have a map to point to and examine.
 
+![IMAGE](bubbleplot.png)
+
 ### Technique 2: Bubble Chart
 
 I plotted this with geom_point in ggplot2. For the economics plot, I used the variables GDP, GrossNationalIncomePerCapita, and MeanYearsSchooling. I used the raw values of all of these variables. Likewise for the population growth plot, I used the raw values of AdolescentFertilityRate, MedianAge, and AnnualPopulationGrowth. I added the columns religion and region to the data.frame as well for this plot and the subsequent ones. For religion, I used the majority religion in the country and I used some predetermined categories from the original dataset for the regions. The graph also has a continuous color scale for the Human Development Index.
@@ -49,6 +53,8 @@ The plot excels at showing the population and economics trends in this data. It'
 
 From this plot, I learned that China is a country with an average amount of schooling in the context of the world, but one of the highest GDPs (its bubble size is quite apparent). Furthermore we can see the UAE has a small GDP but a very high gross national income per capita due to its rich oil reserves.
 
+![IMAGE](variableprediction.png)
+
 ### Technique 3: Line Graph and Bar Chart
 
 I used the raw data values with this plot to create a linear regression and a random forest model. The line graph displays the root-mean-square error of both models after training the model on the rest of the variables listed. The bar chart displays the mean increase in node purity for a random forest splitting on the variables listed.
@@ -56,6 +62,8 @@ I used the raw data values with this plot to create a linear regression and a ra
 Lie factor here is 1 since I am directly plotting the values from the regression and random forest models on both graphs. Data-ink ratio is medium on the line graph since I am plotting the results of two models across two variables. It is slightly lower for the bar chart because the bars take up more ink and sample size is missing as a variable.I decided to make the bar charts blue here to match the color they had in the above line graph. Data density in these plots are lower than the above ones, but the simplicity of the bar chart here, while lowering data density, makes it still an attractive and informative chart.
 
 The line graph excels at showing how for many of the variables, the random forest RMSEs are leaps and bounds lower than the linear model RMSEs. The bar chart gives us a perspective on the varying levels of interdependency of the variables that the bubble chart couldn't. For instance, mean years of schooling is best predicted by the human development index. However, the human development index is better predicted by gross national income per capita. Mean years of schooling, however, is not very well predicted by GNIPerCapita.
+
+![IMAGE](boxplots.png)
 
 ### Technique 4: Box Plot
 
