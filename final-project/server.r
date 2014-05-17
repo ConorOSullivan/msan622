@@ -56,23 +56,6 @@ trainmodel <- function(pred = "HumanDevelopmentIndex", start=170, end=190, cvs =
   show(pp)
 }
 
-# getvarimp <- function(pred,max=190) {
-#   samp <- sample(c(1:nrow(df)),size=max)
-#   train<-df[samp,]
-#   test<-df[-samp,]
-#   trainn<-train[,c(2,3,4,5,6,7,8,9,10,11,12)]#,14,15)]
-#   testn<-test[,c(2,3,4,5,6,7,8,9,10,11,12)]#,14,15)]
-#   mod1<-lm(as.formula(paste(paste(pred),"~ .")), trainn)
-#   rtrain <- na.omit(trainn)
-#   rtest <- na.omit(testn)
-#   mod3<-randomForest(x=rtrain[,-c(which(colnames(rtrain) == pred))], 
-#                      y=rtrain[,which(colnames(rtrain) == pred)], 
-#                      xtest=rtest[,-c(which(colnames(rtest) == pred))],
-#                      ytest=rtest[,which(colnames(rtest) == pred)])
-#   varImpPlot(mod3,main='')
-#   title(paste('Variable Importance for Predicting',pred))
-# }
-
 getvarimp <- function(pred,max=190,order='Alphabetically') {
   samp <- sample(c(1:nrow(df)),size=max)
   train<-df[samp,]
